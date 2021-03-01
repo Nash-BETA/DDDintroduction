@@ -7,11 +7,19 @@ export namespace User_03 {
         }
 
         ChangeName(name: string):string {
-            if (name == null) {
-                throw new Error('nameがnull');
-            }
-            if (name.length < 3) {
-                throw new Error('ユーザ名は３文字以上です。');
+            try {
+                if (name == null) {
+                    //トランザクション内ではないのでthrowはいらない
+                    throw 'nameがnull';
+                }else{
+                    if (name.length < 3) {
+                        //トランザクション内ではないのでthrowはいらない
+                        throw 'ユーザ名は３文字以上です。';
+                    }
+
+                }
+            }catch (e) {
+                console.log(e);
             }
             return name;
         }
